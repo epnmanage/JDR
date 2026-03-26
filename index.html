@@ -981,26 +981,7 @@ function showSession(e, id) {
           </ul>
         </div>` : ''}
 
-        ${s.butin.length ? `
-        <div class="sidebar-box">
-          <p class="sidebar-title">Butin</p>
-          <ul class="sidebar-list" style="gap:.5rem">
-            ${s.butin.map(b=>`
-            <li style="display:flex;justify-content:space-between;width:100%">
-              <span class="loot-name">${b.nom}</span>
-              <span class="loot-rarity rarity-${b.rarete}">${b.rarete}</span>
-            </li>`).join('')}
-          </ul>
-        </div>` : ''}
-
-        ${s.xp ? `
-        <div class="sidebar-box">
-          <p class="sidebar-title">Progression</p>
-          <div class="xp-wrap">
-            <div class="xp-label"><span>XP</span><span>${s.xp} / ${s.xp_max}</span></div>
-            <div class="xp-track"><div class="xp-fill" style="width:${Math.round(s.xp/s.xp_max*100)}%"></div></div>
-          </div>
-        </div>` : ''}
+   
 
         <div class="sidebar-box">
           <p class="sidebar-title">Le groupe</p>
