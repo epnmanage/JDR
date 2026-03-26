@@ -907,7 +907,7 @@ function buildSessionCards() {
         <p class="card-summary">${s.resume}</p>
         ${s.done ? `
         <div class="card-players">
-          ${PLAYERS.map(p => `<span class="player-tag">${p.name}</span>`).join('')}
+         ${s.players.map(name => `<span class="player-tag">${name}</span>`).join('')}
         </div>
         <div class="card-footer">
           <span>Lire la chronique</span>
@@ -961,7 +961,7 @@ function showSession(e, id) {
         </div>
         <div class="session-meta-item">
           <span class="meta-key">Joueurs</span>
-          <span class="meta-val">${PLAYERS.map(p=>p.name).join(', ')}</span>
+          <span class="meta-val">${s.players.join(', ')}</span>
         </div>
         
       </div>
@@ -987,7 +987,10 @@ function showSession(e, id) {
         <div class="sidebar-box">
           <p class="sidebar-title">Le groupe</p>
           <ul class="sidebar-list">
-            ${PLAYERS.map(p=>`<li>${p.emoji} ${p.name} — <em style="color:var(--muted);font-size:.8rem">${p.classe}</em></li>`).join('')}
+           ${PLAYERS
+  .filter(p => s.players.includes(p.name))
+  .map(p => `<li>${p.emoji} ${p.name} — <em style="color:var(--muted);font-size:.8rem">${p.classe}</em></li>`)
+  .join('')}
           </ul>
         </div>
 
