@@ -788,33 +788,31 @@
 ═══════════════════════════════════════════ */
 
 const PLAYERS = [
-  { name: "Lyria", classe: "Tisseuse de Cendres", player: "Joueur 1", emoji: "🔥" },
-  { name: "Drek",  classe: "Survivant Amélioré",  player: "Joueur 2", emoji: "⚙️" },
-  { name: "Vael",  classe: "Éclaireur des Ruines", player: "Joueur 3", emoji: "🗡️" },
-  { name: "Sorra", classe: "Médecin de Guerre",   player: "Joueur 4", emoji: "💊" },
+  { name: "Xander", classe: "Guérisseuse", player: "Joueur 1", emoji: "🌱" },
+  { name: "Melusine",  classe: "Mécanicienne",  player: "Joueur 2", emoji: "⚙️" },
+  { name: "Ross",  classe: "Chroniqueur", player: "Joueur 3", emoji: "📜" },
+  { name: "Gavroche", classe: "Chasseur",   player: "Joueur 4", emoji: "🏹" },
+  { name: "Gavroche", classe: "philosophe",   player: "Joueur 5", emoji: "🧠" },
 ];
 
 const SESSIONS = [
   {
     id: 1,
     titre: "Le message",
-    date: "15 janvier 2025",
+    date: "29-07-25",
     lieu: "Le clan de Cham",
     done: true,
     resume: "Le Groupe vis dans un système de grotte dans lequel est recu un message d'apelle à l'aide venu du nord...",
     
     highlights: [
-      "Première rencontre avec les Gardiens de la Cendre",
-      "Découverte de l'Éclat de Verre Noir",
-      "Lyria perd deux doigts dans la salle des miroirs",
+      "Reception du message",
+      "le groupe se forme",
+      "Adieu au clan",
+      "Premier combat",
     ],
-    butin: [
-      { nom: "Éclat de Verre Noir", rarete: "rare" },
-      { nom: "Masque de filtration", rarete: "uncommon" },
-      { nom: "Rations scellées ×8", rarete: "common" },
-    ],
+    
     chronicle: `
-      <h2>La rencontre</h2>
+      <h2>Le message</h2>
       <p>C'est dans les entrailles de Ferrach, sous un ciel couleur de sang séché, que les destins de quatre étrangers se sont noués. La pluie acide tambourinait sur les tôles rouillées de la taverne — si l'on peut encore appeler ainsi cet amoncellement de gravats où l'on sert un alcool imbuvable.</p>
       <blockquote>« Le ciel rougit toujours avant que quelque chose de terrible ne se produise. » — Drek, à personne en particulier</blockquote>
       <p>Lyria cherchait des informations sur sa famille disparue depuis la Grande Brûlure. Drek n'était là que pour le métal récupérable. Vael escortait un mystérieux messager qui ne tarda pas à rendre l'âme sur la table. Quant à Sorra, elle était venue soigner, mais les mourants ici ne manquaient pas.</p>
@@ -831,18 +829,13 @@ const SESSIONS = [
     lieu: "Les Plaines de Sel",
     done: true,
     resume: "La traversée des Plaines de Sel confronte le groupe à une caravane prise en embuscade et à la menace des Mange-Tempêtes, créatures nées des orages de cendres.",
-    xp: 480,
-    xp_max: 500,
+   
     highlights: [
       "Sauvetage de la marchande Ylvara",
       "Drek déclenche accidentellement une bombe fumigène ancienne",
       "Vael découvre la piste de l'Ordre des Braises Froides",
     ],
-    butin: [
-      { nom: "Carte des tunnels nord", rarete: "uncommon" },
-      { nom: "Venin de Mange-Tempête", rarete: "rare" },
-      { nom: "Pièces de cuivre ×23", rarete: "common" },
-    ],
+    
     chronicle: `
       <h2>La traversée</h2>
       <p>Trois jours de marche sur le sel blanc qui craque sous les bottes. Les Plaines de Sel furent autrefois un lac immense ; aujourd'hui elles sont une étendue aveuglante sous le ciel écarlate, ponctuées de piliers de sel qui ressemblent à des sentinelles mortes.</p>
