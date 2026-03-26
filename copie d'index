@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Sky — Chroniques</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood:     #8B1A1A;
+      --ember:     #C0392B;
+      --rust:      #A0522D;
+      --gold:      #C9A84C;
+      --ash:       #2A2A2A;
+      --smoke:     #1A1A1A;
+      --fog:       #3D3D3D;
+      --parchment: #F5EDD6;
+      --ink:       #1C1008;
+      --muted:     #9E8E6E;
+      --glow:      rgba(192, 57, 43, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--smoke);
+      color: var(--parchment);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── FOND ÉTOILÉ / GRAIN ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 12% 23%, rgba(201,168,76,0.18) 0%, transparent 0%),
+        radial-gradient(1px 1px at 55% 8%,  rgba(201,168,76,0.12) 0%, transparent 0%),
+        radial-gradient(1px 1px at 78% 35%, rgba(201,168,76,0.15) 0%, transparent 0%),
+        radial-gradient(1px 1px at 33% 68%, rgba(201,168,76,0.10) 0%, transparent 0%),
+        radial-gradient(1px 1px at 90% 72%, rgba(201,168,76,0.14) 0%, transparent 0%),
+        radial-gradient(1px 1px at 4%  91%, rgba(201,168,76,0.12) 0%, transparent 0%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO HEADER ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(139,26,26,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 100% 50% at 50% 100%, rgba(26,26,26,0.9) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* Horizon rougeoyant */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to top,
+        rgba(139,26,26,0.22) 0%,
+        transparent 100%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 700;
+      color: var(--parchment);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-shadow:
+        0 0 80px rgba(139,26,26,0.8),
+        0 0 30px rgba(192,57,43,0.5),
+        0 2px 4px rgba(0,0,0,0.9);
+      animation: fadeUp 1.2s ease 0.2s both;
+    }
+
+    .hero-title span {
+      color: var(--blood);
+      display: block;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+      animation: fadeUp 1.2s ease 0.4s both;
+    }
+
+    .hero-divider::before,
+    .hero-divider::after {
+      content: '';
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .hero-divider::after {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+
+    .hero-rune {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    .hero-tagline {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      animation: fadeUp 1.2s ease 0.6s both;
+    }
+
+    /* Décoration — silhouette horizon */
+    .skyline {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      z-index: 0;
+      opacity: 0.25;
+    }
+
+    /* ── NAVIGATION ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(18,12,8,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139,26,26,0.3);
+      padding: 0 2rem;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--parchment); }
+
+    /* ── MAIN LAYOUT ── */
+    .main-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      text-align: center;
+      padding: 5rem 0 3rem;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--parchment);
+      text-shadow: 0 0 40px rgba(139,26,26,0.5);
+    }
+
+    .section-rule {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 1.2rem auto 0;
+    }
+
+    /* ── GRILLE DE SESSIONS ── */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2px;
+      margin-top: 1rem;
+    }
+
+    /* Carte de session */
+    .session-card {
+      position: relative;
+      background: rgba(30,20,14,0.8);
+      border: 1px solid rgba(139,26,26,0.2);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .session-card:hover {
+      border-color: rgba(192,57,43,0.6);
+      transform: translateY(-3px);
+      z-index: 2;
+    }
+
+    .session-card:hover .card-glow {
+      opacity: 1;
+    }
+
+    .session-card:hover .card-title {
+      color: var(--gold);
+    }
+
+    .card-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top left, rgba(139,26,26,0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-session-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.05rem;
+      color: var(--parchment);
+      line-height: 1.3;
+      transition: color 0.3s;
+      max-width: 220px;
+    }
+
+    .card-badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-done   { background: rgba(139,26,26,0.25); color: var(--ember); border: 1px solid rgba(139,26,26,0.4); }
+    .badge-coming { background: rgba(60,60,60,0.4);   color: var(--muted); border: 1px solid rgba(100,100,100,0.3); font-style: italic; }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    .card-summary {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(245,237,214,0.7);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .card-players {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .player-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid rgba(201,168,76,0.2);
+      color: rgba(201,168,76,0.7);
+      border-radius: 2px;
+    }
+
+    .card-footer {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(139,26,26,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--blood);
+      letter-spacing: 0.15em;
+    }
+
+    .card-footer-arrow { transition: transform 0.3s; }
+    .session-card:hover .card-footer-arrow { transform: translateX(5px); }
+
+    /* Card "à venir" - style différent */
+    .session-card.upcoming {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .session-card.upcoming:hover {
+      transform: none;
+      border-color: rgba(139,26,26,0.2);
+    }
+
+    /* ── PAGE DE SESSION (template) ── */
+    .session-page {
+      display: none;
+    }
+
+    .session-page.active {
+      display: block;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin: 3rem 0 2rem;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .back-link:hover { color: var(--parchment); }
+
+    .session-hero {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(139,26,26,0.2);
+      margin-bottom: 3rem;
+    }
+
+    .session-hero-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 0.8rem;
+    }
+
+    .session-hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--parchment);
+      text-shadow: 0 0 60px rgba(139,26,26,0.6);
+      margin-bottom: 1rem;
+    }
+
+    .session-hero-date {
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+    }
+
+    .session-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .session-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .meta-key {
+      font-size: 0.68rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--blood);
+    }
+
+    .meta-val {
+      font-size: 0.9rem;
+      color: var(--parchment);
+    }
+
+    /* Corps de la session */
+    .session-body {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .session-body { grid-template-columns: 1fr; }
+    }
+
+    .session-chronicle h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .session-chronicle h2:first-child { margin-top: 0; }
+
+    .session-chronicle p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(245,237,214,0.85);
+      margin-bottom: 1.2rem;
+    }
+
+    .session-chronicle blockquote {
+      border-left: 3px solid var(--blood);
+      padding: 0.8rem 1.5rem;
+      margin: 1.5rem 0;
+      background: rgba(139,26,26,0.06);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* Sidebar */
+    .session-sidebar {
+      position: sticky;
+      top: 72px;
+    }
+
+    .sidebar-box {
+      background: rgba(30,20,14,0.7);
+      border: 1px solid rgba(139,26,26,0.2);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(139,26,26,0.15);
+    }
+
+    .sidebar-list {
+      list-style: none;
+    }
+
+    .sidebar-list li {
+      font-size: 0.9rem;
+      color: rgba(245,237,214,0.75);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sidebar-list li::before {
+      content: '◆';
+      font-size: 0.4rem;
+      color: var(--blood);
+    }
+
+    .loot-item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .loot-name { color: rgba(245,237,214,0.75); font-size: 0.9rem; }
+    .loot-rarity { font-size: 0.72rem; letter-spacing: 0.1em; }
+    .rarity-rare { color: #7B68EE; }
+    .rarity-uncommon { color: #2ecc71; }
+    .rarity-common { color: var(--muted); }
+
+    /* XP bar */
+    .xp-wrap {
+      margin-top: 0.5rem;
+    }
+
+    .xp-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .xp-track {
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--blood), var(--gold));
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    /* ── PERSONNAGES ── */
+    .characters-section {
+      padding: 5rem 0;
+      border-top: 1px solid rgba(139,26,26,0.15);
+    }
+
+    .chars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .char-card {
+      background: rgba(30,20,14,0.6);
+      border: 1px solid rgba(139,26,26,0.18);
+      padding: 1.6rem 1.4rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+
+    .char-card:hover {
+      border-color: rgba(192,57,43,0.5);
+    }
+
+    .char-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(139,26,26,0.25);
+      border: 2px solid rgba(201,168,76,0.3);
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .char-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.9rem;
+      color: var(--parchment);
+      margin-bottom: 0.3rem;
+    }
+
+    .char-class {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blood);
+    }
+
+    .char-player {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      border-top: 1px solid rgba(139,26,26,0.2);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+    }
+
+    .site-footer strong {
+      font-family: 'Cinzel Decorative', serif;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HOME / SESSION TOGGLE ── */
+    #homepage { display: block; }
+    #session-view { display: none; }
+    #session-view.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showHome(event)">Red Sky</a>
+    <ul class="nav-links">
+      <li><a href="#sessions" onclick="showHome(event); setTimeout(()=>document.getElementById('sessions').scrollIntoView({behavior:'smooth'}),100)">Sessions</a></li>
+      <li><a href="#personnages" onclick="showHome(event); setTimeout(()=>document.getElementById('personnages').scrollIntoView({behavior:'smooth'}),100)">Personnages</a></li>
+      
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ PAGE D'ACCUEIL ═══════════════════════════ -->
+<div id="homepage">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Chroniques de</p>
+      <h1 class="hero-title">Red <span>Sky</span></h1>
+      <div class="hero-divider"><span class="hero-rune">✦</span></div>
+      <p class="hero-tagline">Le ciel a toujours été rouge, Il ne change jamais. Il brûle les yeux, hante les rêves… et parfois, il murmure.</p>
+    </div>
+
+    <!-- Skyline SVG décorative -->
+    <svg class="skyline" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path fill="currentColor" d="M0,100 L20,100 L20,60 L40,60 L40,40 L60,40 L60,70 L80,70 L80,50 L100,50 L100,80 L120,80 L120,35 L140,35 L140,55 L160,55 L160,45 L180,45 L180,70 L200,70 L200,55 L220,55 L220,30 L240,30 L240,50 L260,50 L260,60 L280,60 L280,40 L300,40 L300,65 L320,65 L320,50 L340,50 L340,75 L360,75 L360,55 L400,55 L400,45 L440,45 L440,70 L480,70 L480,50 L520,50 L520,30 L560,30 L560,55 L600,55 L600,40 L640,40 L640,60 L680,60 L680,45 L720,45 L720,70 L760,70 L760,55 L800,55 L800,35 L840,35 L840,60 L880,60 L880,45 L920,45 L920,70 L960,70 L960,50 L1000,50 L1000,30 L1040,30 L1040,55 L1080,55 L1080,40 L1120,40 L1120,65 L1160,65 L1160,80 L1200,80 L1200,120 L0,120 Z"/>
+    </svg>
+  </header>
+
+  <main class="main-wrap">
+
+    <!-- ── SECTION SESSIONS ── -->
+    <section id="sessions">
+      <div class="section-header">
+        <p class="section-label">Annales</p>
+        <h2 class="section-title">Les Sessions</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="sessions-grid" id="sessions-grid">
+        <!-- Les cartes sont générées par JS -->
+      </div>
+    </section>
+
+    <!-- ── SECTION PERSONNAGES ── -->
+    <section id="personnages" class="characters-section">
+      <div class="section-header" style="padding-top:0">
+        <p class="section-label">Le Groupe</p>
+        <h2 class="section-title">Les Aventuriers</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="chars-grid" id="chars-grid">
+        <!-- Généré par JS -->
+      </div>
+    </section>
+
+  </main>
+
+</div><!-- /#homepage -->
+
+
+<!-- ═══════════════════════════ VUE SESSION ═══════════════════════════ -->
+<div id="session-view">
+  <main class="main-wrap">
+
+    <a class="back-link" onclick="showHome(event)">
+      ← Retour aux chroniques
+    </a>
+
+    <div id="session-content">
+      <!-- Contenu dynamique -->
+    </div>
+
+  </main>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>Un univers créé pour <strong>Red Sky</strong> &nbsp;·&nbsp; Toutes les aventures y sont relatées fidèlement.</p>
+</footer>
+
+
+<script>
+/* ══════════════════════════════════════════
+   DONNÉES — Modifiez cette section pour
+   ajouter / éditer vos sessions et personnages
+═══════════════════════════════════════════ */
+
+const PLAYERS = [
+  { name: "Xander", classe: "Guérisseuse", player: "Joueur 1", emoji: "🌱" },
+  { name: "Melusine",  classe: "Mécanicienne",  player: "Joueur 2", emoji: "⚙️" },
+  { name: "Ross",  classe: "Chroniqueur", player: "Joueur 3", emoji: "📜" },
+  { name: "Gavroche", classe: "Chasseur",   player: "Joueur 4", emoji: "🏹" },
+  { name: "Pola", classe: "philosophe",   player: "Joueur 5", emoji: "🧠" },
+];
+
+const SESSIONS = [
+  {
+    id: 1,
+    titre: "Le message",
+    date: "29-07-25",
+    lieu: "Le clan de Cham",
+    done: true,
+    resume: "Le Groupe vis dans un système de grotte dans lequel est recu un message d'apelle à l'aide venu du nord...",
+    xp: 350,
+    xp_max: 500,
+    highlights: [
+      "Reception du message",
+      "le groupe se forme",
+      "Adieu au clan",
+      "Premier combat",
+    ],
+    butin: [
+      { nom: "Éclat de Verre Noir", rarete: "rare" },
+      { nom: "Masque de filtration", rarete: "uncommon" },
+      { nom: "Rations scellées ×8", rarete: "common" },
+    ],
+    chronicle: `
+      <h2>La rencontre</h2>
+      <p>C'est dans les entrailles de Ferrach, sous un ciel couleur de sang séché, que les destins de quatre étrangers se sont noués. La pluie acide tambourinait sur les tôles rouillées de la taverne — si l'on peut encore appeler ainsi cet amoncellement de gravats où l'on sert un alcool imbuvable.</p>
+      <blockquote>« Le ciel rougit toujours avant que quelque chose de terrible ne se produise. » — Drek, à personne en particulier</blockquote>
+      <p>Lyria cherchait des informations sur sa famille disparue depuis la Grande Brûlure. Drek n'était là que pour le métal récupérable. Vael escortait un mystérieux messager qui ne tarda pas à rendre l'âme sur la table. Quant à Sorra, elle était venue soigner, mais les mourants ici ne manquaient pas.</p>
+
+      <h2>Les sous-niveaux</h2>
+      <p>L'expédition dans les sous-niveaux faillit tourner court dès les premières minutes. Les Gardiens de la Cendre — ces fanatiques qui vénèrent les flammes de l'Apocalypse comme un dieu — patrouillaient en nombre. Le groupe dut se faufiler entre des colonnes de béton effondré, le souffle court, pour éviter de tomber sur leur chef.</p>
+      <p>C'est dans la salle des miroirs que tout bascula. Les panneaux de verre fumé réfléchissaient des silhouettes impossibles. Lyria, en trop s'approchant d'un panneau inexplicablement intact, y laissa deux doigts. L'Éclat de Verre Noir était encastré dans la paroi — une lame capable, dit-on, de couper les liens entre l'âme et le corps.</p>
+    `,
+  },
+  {
+    id: 2,
+    titre: "Sel & Silence",
+    date: "29 janvier 2025",
+    lieu: "Les Plaines de Sel",
+    done: true,
+    resume: "La traversée des Plaines de Sel confronte le groupe à une caravane prise en embuscade et à la menace des Mange-Tempêtes, créatures nées des orages de cendres.",
+    xp: 480,
+    xp_max: 500,
+    highlights: [
+      "Sauvetage de la marchande Ylvara",
+      "Drek déclenche accidentellement une bombe fumigène ancienne",
+      "Vael découvre la piste de l'Ordre des Braises Froides",
+    ],
+    butin: [
+      { nom: "Carte des tunnels nord", rarete: "uncommon" },
+      { nom: "Venin de Mange-Tempête", rarete: "rare" },
+      { nom: "Pièces de cuivre ×23", rarete: "common" },
+    ],
+    chronicle: `
+      <h2>La traversée</h2>
+      <p>Trois jours de marche sur le sel blanc qui craque sous les bottes. Les Plaines de Sel furent autrefois un lac immense ; aujourd'hui elles sont une étendue aveuglante sous le ciel écarlate, ponctuées de piliers de sel qui ressemblent à des sentinelles mortes.</p>
+      <p>C'est au second jour qu'ils aperçurent la fumée noire : une caravane attaquée par les Mange-Tempêtes, ces chimères de vent et de cendres condensées que les orages de la Grande Brûlure ont engendrées. Lentes à se déplacer, mais impossibles à tuer par les armes ordinaires.</p>
+
+      <h2>L'embuscade</h2>
+      <p>Sorra fut la première à rejoindre les survivants. Ylvara, la marchande, protégeait deux enfants sous une charette renversée. Le groupe forma une ligne, mais c'est la maladresse légendaire de Drek qui sauva la mise : en fouillant ses poches pour ses outils, il déclencha une grenade fumigène datant d'avant l'Apocalypse. La fumée violette dérouta les Mange-Tempêtes assez longtemps pour battre en retraite.</p>
+      <blockquote>« Je voulais faire ça. » — Drek, le visage couvert de suie violette</blockquote>
+      <p>Vael, en fouillant les bagages abandonnés par les assaillants, trouva des symboles gravés dans le cuir : l'emblème de l'Ordre des Braises Froides. Une piste nouvelle s'ouvrait.</p>
+    `,
+  },
+  {
+    id: 3,
+    titre: "Le Verdict de l'Aube",
+    date: "Prochainement",
+    lieu: "???",
+    done: false,
+    resume: "À venir…",
+    highlights: [],
+    butin: [],
+    chronicle: "",
+  },
+  {
+    id: 4,
+    titre: "Session 4",
+    date: "Prochainement",
+    lieu: "???",
+    done: false,
+    resume: "À venir…",
+    highlights: [],
+    butin: [],
+    chronicle: "",
+  },
+];
+
+/* ══════════════════════════════════════════
+   RENDU DES CARTES
+═══════════════════════════════════════════ */
+
+function buildSessionCards() {
+  const grid = document.getElementById('sessions-grid');
+  grid.innerHTML = SESSIONS.map(s => `
+    <a class="session-card${s.done ? '' : ' upcoming'} reveal"
+       onclick="${s.done ? `showSession(event,${s.id})` : 'event.preventDefault()'}">
+      <div class="card-glow"></div>
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <p class="card-session-number">Session ${String(s.id).padStart(2,'0')}</p>
+            <h3 class="card-title">${s.titre}</h3>
+          </div>
+          <span class="card-badge ${s.done ? 'badge-done' : 'badge-coming'}">
+            ${s.done ? 'Jouée' : 'À venir'}
+          </span>
+        </div>
+        <p class="card-meta">📍 ${s.lieu} &nbsp;·&nbsp; 📅 ${s.date}</p>
+        <p class="card-summary">${s.resume}</p>
+        ${s.done ? `
+        <div class="card-players">
+          ${PLAYERS.map(p => `<span class="player-tag">${p.name}</span>`).join('')}
+        </div>
+        <div class="card-footer">
+          <span>Lire la chronique</span>
+          <span class="card-footer-arrow">→</span>
+        </div>` : ''}
+      </div>
+    </a>
+  `).join('');
+  observeReveal();
+}
+
+function buildCharCards() {
+  const grid = document.getElementById('chars-grid');
+  grid.innerHTML = PLAYERS.map(p => `
+    <div class="char-card reveal">
+      <div class="char-avatar">${p.emoji}</div>
+      <p class="char-name">${p.name}</p>
+      <p class="char-class">${p.classe}</p>
+      <p class="char-player">${p.player}</p>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+
+function showHome(e) {
+  if (e) e.preventDefault();
+  document.getElementById('homepage').style.display = 'block';
+  document.getElementById('session-view').classList.remove('active');
+  window.scrollTo({ top: 0 });
+}
+
+function showSession(e, id) {
+  e.preventDefault();
+  const s = SESSIONS.find(x => x.id === id);
+  if (!s || !s.done) return;
+
+  document.getElementById('session-content').innerHTML = `
+    <div class="session-hero">
+      <p class="session-hero-label">Session ${String(s.id).padStart(2,'0')}</p>
+      <h1 class="session-hero-title">${s.titre}</h1>
+      <p class="session-hero-date">📅 ${s.date}</p>
+
+      <div class="session-meta-row">
+        <div class="session-meta-item">
+          <span class="meta-key">Lieu</span>
+          <span class="meta-val">${s.lieu}</span>
+        </div>
+        <div class="session-meta-item">
+          <span class="meta-key">Joueurs</span>
+          <span class="meta-val">${PLAYERS.map(p=>p.name).join(', ')}</span>
+        </div>
+        <div class="session-meta-item">
+          <span class="meta-key">XP gagné</span>
+          <span class="meta-val">${s.xp || 0} pts</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="session-body">
+      <article class="session-chronicle">
+        ${s.chronicle}
+      </article>
+
+      <aside class="session-sidebar">
+
+        ${s.highlights.length ? `
+        <div class="sidebar-box">
+          <p class="sidebar-title">Temps forts</p>
+          <ul class="sidebar-list">
+            ${s.highlights.map(h=>`<li>${h}</li>`).join('')}
+          </ul>
+        </div>` : ''}
+
+        ${s.butin.length ? `
+        <div class="sidebar-box">
+          <p class="sidebar-title">Butin</p>
+          <ul class="sidebar-list" style="gap:.5rem">
+            ${s.butin.map(b=>`
+            <li style="display:flex;justify-content:space-between;width:100%">
+              <span class="loot-name">${b.nom}</span>
+              <span class="loot-rarity rarity-${b.rarete}">${b.rarete}</span>
+            </li>`).join('')}
+          </ul>
+        </div>` : ''}
+
+        ${s.xp ? `
+        <div class="sidebar-box">
+          <p class="sidebar-title">Progression</p>
+          <div class="xp-wrap">
+            <div class="xp-label"><span>XP</span><span>${s.xp} / ${s.xp_max}</span></div>
+            <div class="xp-track"><div class="xp-fill" style="width:${Math.round(s.xp/s.xp_max*100)}%"></div></div>
+          </div>
+        </div>` : ''}
+
+        <div class="sidebar-box">
+          <p class="sidebar-title">Le groupe</p>
+          <ul class="sidebar-list">
+            ${PLAYERS.map(p=>`<li>${p.emoji} ${p.name} — <em style="color:var(--muted);font-size:.8rem">${p.classe}</em></li>`).join('')}
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+  `;
+
+  document.getElementById('homepage').style.display = 'none';
+  document.getElementById('session-view').classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+
+function observeReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+}
+
+/* ══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+
+buildSessionCards();
+buildCharCards();
+</script>
+
+</body>
+</html>
