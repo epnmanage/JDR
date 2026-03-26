@@ -803,16 +803,21 @@ const SESSIONS = [
     lieu: "Le clan de Cham",
     done: true,
     resume: "Le Groupe vis dans un système de grotte dans lequel est recu un message d'apelle à l'aide venu du nord...",
-    
+    xp: 350,
+    xp_max: 500,
     highlights: [
       "Reception du message",
       "le groupe se forme",
       "Adieu au clan",
       "Premier combat",
     ],
-    
+    butin: [
+      { nom: "Éclat de Verre Noir", rarete: "rare" },
+      { nom: "Masque de filtration", rarete: "uncommon" },
+      { nom: "Rations scellées ×8", rarete: "common" },
+    ],
     chronicle: `
-      <h2>Le message</h2>
+      <h2>La rencontre</h2>
       <p>C'est dans les entrailles de Ferrach, sous un ciel couleur de sang séché, que les destins de quatre étrangers se sont noués. La pluie acide tambourinait sur les tôles rouillées de la taverne — si l'on peut encore appeler ainsi cet amoncellement de gravats où l'on sert un alcool imbuvable.</p>
       <blockquote>« Le ciel rougit toujours avant que quelque chose de terrible ne se produise. » — Drek, à personne en particulier</blockquote>
       <p>Lyria cherchait des informations sur sa famille disparue depuis la Grande Brûlure. Drek n'était là que pour le métal récupérable. Vael escortait un mystérieux messager qui ne tarda pas à rendre l'âme sur la table. Quant à Sorra, elle était venue soigner, mais les mourants ici ne manquaient pas.</p>
@@ -829,13 +834,18 @@ const SESSIONS = [
     lieu: "Les Plaines de Sel",
     done: true,
     resume: "La traversée des Plaines de Sel confronte le groupe à une caravane prise en embuscade et à la menace des Mange-Tempêtes, créatures nées des orages de cendres.",
-   
+    xp: 480,
+    xp_max: 500,
     highlights: [
       "Sauvetage de la marchande Ylvara",
       "Drek déclenche accidentellement une bombe fumigène ancienne",
       "Vael découvre la piste de l'Ordre des Braises Froides",
     ],
-    
+    butin: [
+      { nom: "Carte des tunnels nord", rarete: "uncommon" },
+      { nom: "Venin de Mange-Tempête", rarete: "rare" },
+      { nom: "Pièces de cuivre ×23", rarete: "common" },
+    ],
     chronicle: `
       <h2>La traversée</h2>
       <p>Trois jours de marche sur le sel blanc qui craque sous les bottes. Les Plaines de Sel furent autrefois un lac immense ; aujourd'hui elles sont une étendue aveuglante sous le ciel écarlate, ponctuées de piliers de sel qui ressemblent à des sentinelles mortes.</p>
