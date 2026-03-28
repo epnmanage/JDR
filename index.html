@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Red Sky — Chroniques</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+   /* ──  ── */<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">  ── */
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --blood:     #8B1A1A;
@@ -51,6 +52,21 @@
     }
 
     /* ── HERO HEADER ── */
+	
+	.hero-title {
+  position: relative;
+}
+
+.hero-title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
     .hero {
       position: relative;
       min-height: 100vh;
@@ -117,10 +133,10 @@
       animation: fadeUp 1.2s ease 0.2s both;
     }
 
-    .hero-title span {
-      color: var(--blood);
-      display: block;
-    }
+    *.hero-title span {
+    *  color: var(--blood);
+    *  display: block;
+    *}
 
     .hero-divider {
       display: flex;
