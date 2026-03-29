@@ -452,11 +452,12 @@
    JOUEURS
 ═══════════════════════════════════════════ */
 const PLAYERS = [
-  { name: "Xander",   classe: "Guérisseuse",  player: "Angel",       token: "Xander.png",   emoji: "🌱" },
-  { name: "Melusine", classe: "Mécanicienne", player: "Mami",        token: "Melusine.png", emoji: "⚙️" },
-  { name: "Ross",     classe: "Chroniqueur",  player: "Drink'N'Joy", token: "Ross.png",     emoji: "📜" },
-  { name: "Gavroche", classe: "Chasseur",     player: "Minicooki",   token: "Gavroche.png", emoji: "🏹" },
-  { name: "Pola",     classe: "Philosophe",   player: "Archère",     token: "Pola.png",     emoji: "🧠" },
+  { name: "Xander",   classe: "Guérisseuse",  player: "Angel",       token: "xander.png",   emoji: "🌱" },
+  { name: "Melusine", classe: "Mécanicienne", player: "Mami",        token: "melusine.png", emoji: "⚙️" },
+  { name: "Ross",     classe: "Chroniqueur",  player: "Drink'N'Joy", token: "ross.png",     emoji: "📜" },
+  { name: "Gavroche", classe: "Chasseur",     player: "Minicooki",   token: "gavroche.png", emoji: "🏹" },
+  { name: "Pola",     classe: "Philosophe",   player: "Archère",     token: "pola.png",     emoji: "🧠" },
+  
 ];
 
 /* ══════════════════════════════════════════
@@ -466,7 +467,7 @@ const SESSIONS = [
   {
     id: 1,
     titre: "Le message",
-    date: "29-07-25",
+    date: "28-06-25",
     lieu: "Le clan de Cham",
     done: true,
     resume: "Le Groupe vit dans un système de grottes dans lequel est reçu un message d'appel à l'aide venu du nord…",
@@ -477,11 +478,7 @@ const SESSIONS = [
       "Adieu au clan",
       "Premier combat",
     ],
-    butin: [
-      { nom: "Éclat de Verre Noir",  rarete: "rare"     },
-      { nom: "Masque de filtration", rarete: "uncommon" },
-      { nom: "Rations scellées ×8",  rarete: "common"   },
-    ],
+    butin: [],
     chronicle: `
       <h3>Le départ</h3>
 	  <img src="02.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
@@ -496,27 +493,80 @@ const SESSIONS = [
   },
   {
     id: 2,
-    titre: "La route",
-    date: "29 janvier 2026",
-    lieu: "route en ruine",
+    titre: "Mic & Mara",
+    date: "18-07-25",
+    lieu: "La cabane de Mara",
     done: true,
-    resume: "La traversée des Plaines de Sel confronte le groupe à une caravane prise en embuscade et à la menace des Mange-Tempêtes.",
+    resume: "Le groupe découvre une poupée, croise un robot, et secourt une femme qui s’avère être la grand‑mère de Ross",
     presents: ["Xander", "Melusine", "Ross", "Gavroche"],
     highlights: [
       "le sauvetage de Mara",
       "la découverte de la cabanne",
       "Les retrouvaille d'une famille",
     ],
-    butin: [
-    ],
+    butin: [],
     chronicle: `
-      <h3>Le départ</h3>
+      <h3>Une poupée qui ravive une blessure..</h3> 
 	  <img src="03.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
-	  <p>Dans l'obscurité de notre grotte-refuge, là où la roche étouffe le vent et où la survie se joue au fil des jours, un événement vint briser le silence : un appel radio, capté par Caleb. Une demande d'aide, faible, grésillant, mais impossible à ignorer.</p>
-      <p>Avec le soutien de Jarrow, notre chef de clan, nous avons formé une équipe prête à braver l'inconnu. La nuit précédant notre départ, nous avons pris le temps de dire adieu. Des adieux étouffés par la roche, chargés d'émotions, de regards lourds, de mains serrées trop longtemps.</p>
-      <p>Puis, le matin venu, nous avons quitté la grotte pour le Nord, vers cet inconnu où l'appel s'était éteint. En chemin, un lynx croisa notre route — apparition sauvage, presque mystique, comme si le monde lui-même jaugeait notre détermination.</p>
-	  <img src="04.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
-      <p>Et lorsque Ross pleura, au détour d'un sentier, ce furent des larmes qui scellèrent notre lien. Plus qu'un groupe, nous étions devenus une meute. L'aventure ne faisait que commencer.</p>
+	  <section>
+    <p><strong>Jour… je ne sais plus lequel.</strong> Peut-être que ça n’a plus vraiment d’importance.</p>
+
+  <p>
+    Aujourd’hui, la route vibrait encore des échos du village que nous venions de quitter.
+    J’ai vu Melu et Gavroche terrasser un lynx — un vrai lynx — avec une facilité qui me dépasse.
+    J’aimerais devenir aussi fort qu’eux un jour.
+  </p>
+
+  <p>
+    Un peu plus loin, nous sommes tombés sur une voiture. Une vraie.
+    Je n’en avais jamais vue autrement que dans les histoires.
+    Puis j’ai trouvé une poupée… et elle a réveillé un souvenir que j’aurais préféré laisser dormir.
+    Mami m’a rassuré, comme toujours. Elle sait quand ça fait mal.
+  </p>
+
+  <p>
+    Ensuite, il y a eu ce bruit. Cette femme inconsciente.
+    Gavroche a eu une idée étrange, mais Melu et Xander sont arrivés à temps.
+    On l’a ramenée chez elle. Et puis tout s’est accéléré.
+  </p>
+
+  <p>
+    Un robot affolé a traversé notre chemin, courant partout comme un animal perdu.
+    Ça m’a presque fait rire.
+  </p>
+
+  <p>
+    Mais le rire s’est arrêté quand la femme s’est réveillée.
+    Quand elle a demandé à parler à Melu et Xander.
+    Quand j’ai compris qu’elle était… ma grand-mère.
+    Et dans sa maison, j’ai trouvé une photo de ma mère.
+    Elle m’a manqué d’un coup, comme si la douleur n’avait jamais disparu.
+  </p>
+
+  <p>
+    Heureusement, Melu était là. Elle est toujours là.
+    Même si elle n’est pas ma mère biologique… elle est ma mère quand même.
+  </p>
+
+  <p>
+    Pendant ce temps, Gavroche a trouvé un tracteur.
+    Je ne savais même pas ce que c’était, mais c’était énorme, comme un arbre de métal.
+    Il a juste poussé quelques feuilles et… voilà.
+  </p>
+
+  <p>
+    Avant notre départ, Mami Mara nous a dit d’aller cinq jours vers le nord.
+    Je ne sais pas pourquoi, mais je les suivrai.
+    Tous. Où qu’ils aillent.
+  </p>
+  <img src="04.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Et puis la radio s’est mise à parler.
+    Comme si quelqu’un, quelque part, nous appelait.
+    Je crois que demain, tout va encore changer.
+    Mais je ne suis plus seul. Et ça change tout.
+  </p>
+</section>
       <div style="clear:both;"></div>
 	  <blockquote>« Je veux que tu saches que ta maman, ma fille, t'aimais beaucoup » — Mara, à Ross</blockquote>
 
@@ -525,50 +575,162 @@ const SESSIONS = [
   },
   {
     id: 3,
-    titre: "Mic & Mara",
-    date: "29 janvier 2026",
-    lieu: "La cabane de Mara",
+    titre: "Les enfants perdus #1",
+    date: "29-07-2025",
+    lieu: "La route",
     done: true,
-    resume: "À venir…",
+    resume: "Après avoir accueilli Pola, le groupe affronte un sanglier furieux et tombe sur un barrage d’enfants sauvages.. ",
     highlights: [
 	"L'obtention d'un equipement lourd",
+	"Une nouvelle venue",
+	"Un combat avec un sanglier",
+	"Decouverte des enfants sauvages",
+	"La mort de la maman",
+	
 	],
     butin: [],
 	presents: ["Xander", "Melusine", "Ross", "Gavroche", "Pola"],
     chronicle: `
-	<img src="03.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
-	  <p>Dans l'obscurité de notre grotte-refuge, là où la roche étouffe le vent et où la survie se joue au fil des jours, un événement vint briser le silence : un appel radio, capté par Caleb. Une demande d'aide, faible, grésillant, mais impossible à ignorer.</p>
-      <p>Avec le soutien de Jarrow, notre chef de clan, nous avons formé une équipe prête à braver l'inconnu. La nuit précédant notre départ, nous avons pris le temps de dire adieu. Des adieux étouffés par la roche, chargés d'émotions, de regards lourds, de mains serrées trop longtemps.</p>
-      <p>Puis, le matin venu, nous avons quitté la grotte pour le Nord, vers cet inconnu où l'appel s'était éteint. En chemin, un lynx croisa notre route — apparition sauvage, presque mystique, comme si le monde lui-même jaugeait notre détermination.</p>
-	  <img src="04.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
-      <p>Et lorsque Ross pleura, au détour d'un sentier, ce furent des larmes qui scellèrent notre lien. Plus qu'un groupe, nous étions devenus une meute. L'aventure ne faisait que commencer.</p>
+	<img src="05.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+	  <section>
+	  <h3>La Meute Orpheline </h3>
+  <p>
+    Après s’être équipés grâce aux réserves de Mara, la grand-mère que Ross venait tout juste de retrouver,
+    le groupe fait la connaissance de Pola, la jeune protégée de Mara, qui accepte d’intégrer leur petite troupe.
+  </p>
+
+  <p>
+    Ils reprennent la route et affrontent un sanglier géant, rendu fou de rage, dont ils viennent à bout
+    sans subir de véritables dommages.
+  </p>
+
+  <p>
+    Plus loin, un barrage de carcasses de voitures entremêlées leur bloque le passage.
+    De cet étrange rempart surgissent quelques enfants qui réclament un droit de passage.
+  </p>
+
+  <p>
+    Xander comprend rapidement qu’ils sont surtout terrifiés, bien plus que dangereux, et leur offre son aide.
+    Elle découvre alors que leur protectrice, une femme qu’ils appellent « Maman », est gravement malade.
+  </p>
+
+  <p>
+    Xander tente de la sauver, mais arrive trop tard. La femme s’éteint, laissant derrière elle une meute d’enfants perdus.
+  </p>
+<img src="04b.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Lee, le plus âgé, devient de fait le responsable du groupe — une charge immense pour un ado.
+    Ensemble, ils incinèrent la dépouille de leur mère et attendent, silencieux, ce que la suite leur réserve.
+  </p>
+</section>
+
       <div style="clear:both;"></div>
-	  <blockquote>« Je veux que tu saches que ta maman, ma fille, t'aimais beaucoup » — Mara, à Ross</blockquote>
+	  <blockquote>« Se tracteur est fait pour moi! » — Gavroche, au groupe</blockquote>
 	`,
   },
   {
     id: 4,
-    titre: "Les enfants perdus",
-    date: "29 janvier 2026",
+    titre: "Les enfants perdus #2",
+    date: "28-01-2026",
     lieu: "Le clan des sauvageons",
     done: true,
-    resume: "À venir…",
-    highlights: [],
+    resume: "Le groupe se retrouve responsable d'un groupe d'enfants dans un monde qui ne pardonne rien.",
+    highlights: [
+	"Lee devient un homme",
+	"La fugue de Ross",
+	"Moussonne prend en charge la meute",
+	"Un raccourci!",
+	
+	],
     butin: [],
-	presents: ["Xander", "Melusine", "Ross", "Gavroche", "Pola"],
-    chronicle: "",
+	presents: ["Xander", "Melusine", "Ross", "Gavroche", "Pola", "Mousonne",],
+	guests: ["Mousonne"],
+	chronicle: `
+	<img src="07.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+	  <section>
+    <section>
+	<h3>La nuit de tous les mystères</h3>
+  <p>
+    Après des adieux déchirants à leur mère d’adoption, les enfants, épuisés, se réfugient dans leurs couchettes de fortune.
+    Lee, encore bouleversé, trouve un peu de réconfort auprès de Pola, dont la douceur apaise ses pensées trop lourdes.
+  </p>
+
+  <p>
+    Pendant ce temps, Ross, toujours secoué par ses retrouvailles avec sa grand-mère et par les funérailles de la vieille femme,
+    quitte le camp pour échapper au tumulte de ses émotions.
+  </p>
+
+  <p>
+    Par chance, il croise la route du chasseur Moussonne, qui le ramène au camp sans le juger.
+    En apprenant la mort de « Maman », Moussonne décide de rester pour veiller sur la meute d’enfants.
+  </p>
+
+  <p>
+    Lee, un peu blessé dans son honneur, comprend pourtant que Moussonne sera un meilleur guide que lui
+    et accepte de lui laisser la responsabilité du groupe.
+  </p>
+<img src="08.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Le reste de la troupe, chargé de trouver « New Eden », doit reprendre la route.
+    Suivant les indications des enfants, ils empruntent un vieux tunnel sombre,
+    censé leur faire gagner plusieurs jours de marche vers le nord.
+  </p>
+</section>
+<div style="clear:both;"></div>
+	  <blockquote>« Malgré notre responsabilité nous devont trouver "New Eden"! » — Xander, au groupe</blockquote>
+	`,
+    
   },
-  {
-    id: 5,
-    titre: "Le tunnel #1",
-    date: "29 janvier 2026",
-    lieu: "Le tunnel",
-    done: true,
-    resume: "À venir…",
-    highlights: [],
-    butin: [],
-	presents: ["Xander", "Melusine", "Ross", "Gavroche", "Pola"],
-    chronicle: "",
+{
+  id: 5,
+  titre: "Le tunnel #1",
+  date: "25-03-26",
+  lieu: "Le tunnel",
+  done: true,
+  resume: " Le groupe doit reprendre la route vers New Eden et, guidé par les indications des enfants, s’engager dans un vieux tunnel sombre... ",
+  highlights: ["Combat de rats",
+	"tunnel effondré",
+	"Blessure de Ross",
+	"On fonce !",],
+  butin: [
+  
+  ],
+  presents: ["Xander", "Melusine", "Ross", "Gavroche", "Pola"],
+  chronicle: `
+    <img src="10.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+
+    <section>
+      <h3>La route engloutie</h3>
+
+      <p>
+        Laissant derrière eux la meute d’enfants sauvages confiée aux soins de Moussonne et de Lee,
+        le groupe s’engage avec leur tracteur dans un tunnel sombre, humide et glacé.
+      </p>
+
+      <p>
+        Ils rencontrent rapidement leurs premiers ennuis : des rats, attirés par l’odeur de chair fraîche
+        et la lumière des phares, bondissent sur la caravane. Après une lutte désespérée,
+        ils s’en sortent de justesse, non sans quelques dégâts sur le tracteur.
+      </p>
+
+      <p>
+        Quelques kilomètres plus loin, un éboulement massif leur barre la route.
+        Ross tente de se glisser dans les interstices du chaos rocheux, mais se blesse en essayant.
+      </p>
+
+      <p>
+        Gavroche décide alors de prendre les choses en main : il fonce avec le tracteur dans la structure effondrée.
+        Le choc est violent, mais le passage finit par céder.
+      </p>
+
+      <p>
+        Ils se retrouvent de l’autre côté du tunnel, haletants et couverts de poussière,
+        sans savoir ce que l’avenir leur réserve désormais.
+      </p>
+    </section>
+	<div style="clear:both;"></div>
+    <blockquote>« « IIIIK. IIIIK. IIIIK.» — Rat n°3, dernières paroles</blockquote>
+  `,
   },
   {
     id: 6,
@@ -762,6 +924,7 @@ function buildSessionCards() {
         ${s.done ? `
         <div class="card-players">
           ${PLAYERS.filter(p => s.presents && s.presents.includes(p.name)).map(p => `<span class="player-tag">${p.name}</span>`).join('')}
+          ${(s.guests || []).map(g => `<span class="player-tag" style="opacity:0.6; font-style:italic;">${g}</span>`).join('')}
         </div>
         <div class="card-footer">
           <span>Lire la chronique</span>
