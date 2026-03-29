@@ -756,13 +756,9 @@ const SESSIONS = [
 
 /* ══════════════════════════════════════════
    AIDE DE JEU — DONNÉES
-   ► Modifiez DOWNLOADS et TUTOS pour
-     ajouter vos propres fichiers et règles
-═══════════════════════════════════════════ */
+  ═══════════════════════════════════════════ */
 
-// Fichiers à télécharger
-// fichier : nom du PDF/image (même dossier que le HTML)
-// image   : aperçu PNG optionnel (null = pas d'aperçu)
+
 const DOWNLOADS = [
   {
     icon: "📄",
@@ -771,21 +767,9 @@ const DOWNLOADS = [
     fichier: "feuille_perso.pdf",
     image: "vignette.png"
   },
-  // Exemple pour ajouter un autre fichier :
-  // {
-  //   icon: "🗺️",
-  //   nom: "Carte du monde connu",
-  //   desc: "Version haute résolution de la carte du monde.",
-  //   fichier: "carte_monde.pdf",
-  //   image: "carte_monde_preview.png",
-  // },
+ 
 ];
 
-// Tutoriels règles (s'ouvrent en accordéon au clic)
-// tag      : "base" | "avance" | "combat"
-// tagLabel : texte affiché sur l'étiquette
-// image    : illustration PNG optionnelle (null = pas d'image)
-// corps    : contenu HTML libre (p, h3, img…)
 const TUTOS = [
   {
     tag: "base",
@@ -874,14 +858,7 @@ const TUTOS = [
        <p>100 points d’aventure permettent : d’acheter un nouveau talent (à +1),d’augmenter de 1 un talent déjà existant (un talent est max +2!) ou d’augmenter d’un point l’une des trois Énergies.</p>
     `,
   },
-  // Exemple pour ajouter un tutoriel :
-  // {
-  //   tag: "base",
-  //   tagLabel: "Règle de base",
-  //   titre: "Le système d'expérience",
-  //   image: "xp_schema.png",
-  //   corps: `<p>...</p>`,
-  // },
+  
 ];
 
 /* ══════════════════════════════════════════
