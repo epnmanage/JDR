@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Sky — Chroniques</title>
+  <link rel="icon" type="image/png" href="red_sky_favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood:     #8B1A1A;
+      --ember:     #C0392B;
+      --rust:      #A0522D;
+      --gold:      #C9A84C;
+      --ash:       #2A2A2A;
+      --smoke:     #1A1A1A;
+      --fog:       #3D3D3D;
+      --parchment: #F5EDD6;
+      --ink:       #1C1008;
+      --muted:     #9E8E6E;
+      --glow:      rgba(192, 57, 43, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--smoke);
+      color: var(--parchment);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 12% 23%, rgba(201,168,76,0.18) 0%, transparent 0%),
+        radial-gradient(1px 1px at 55% 8%,  rgba(201,168,76,0.12) 0%, transparent 0%),
+        radial-gradient(1px 1px at 78% 35%, rgba(201,168,76,0.15) 0%, transparent 0%),
+        radial-gradient(1px 1px at 33% 68%, rgba(201,168,76,0.10) 0%, transparent 0%),
+        radial-gradient(1px 1px at 90% 72%, rgba(201,168,76,0.14) 0%, transparent 0%),
+        radial-gradient(1px 1px at 4%  91%, rgba(201,168,76,0.12) 0%, transparent 0%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(139,26,26,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 100% 50% at 50% 100%, rgba(26,26,26,0.9) 0%, transparent 60%);
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to top, rgba(139,26,26,0.22) 0%, transparent 100%);
+      z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1.2s ease both;
+    }
+    .hero-logo {
+      max-width: 340px;
+      width: 60vw;
+      display: block;
+      margin: 0 auto;
+      animation: fadeUp 1.2s ease 0.2s both;
+    }
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+      animation: fadeUp 1.2s ease 0.4s both;
+    }
+    .hero-divider::before, .hero-divider::after {
+      content: '';
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .hero-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
+    .hero-rune { color: var(--gold); font-size: 1.2rem; }
+    .hero-tagline {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      animation: fadeUp 1.2s ease 0.6s both;
+    }
+    .hero-tagline--red {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1.2rem;
+      color: var(--ember);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      animation: fadeUp 1.2s ease 0.6s both;
+    }
+    .skyline {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      z-index: 0;
+      opacity: 0.25;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(18,12,8,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139,26,26,0.3);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--gold); text-decoration: none; letter-spacing: 0.1em; }
+    .nav-logo img { height: 36px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--parchment); }
+    .nav-links a.active-nav { color: var(--gold); }
+
+    /* ── MAIN ── */
+    .main-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+    .section-header { text-align: center; padding: 5rem 0 3rem; }
+    .section-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--parchment);
+      text-shadow: 0 0 40px rgba(139,26,26,0.5);
+    }
+    .section-rule {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 1.2rem auto 0;
+    }
+
+    /* ── SESSIONS GRID ── */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2px;
+      margin-top: 1rem;
+    }
+    .session-card {
+      position: relative;
+      background: rgba(30,20,14,0.8);
+      border: 1px solid rgba(139,26,26,0.2);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .session-card:hover { border-color: rgba(192,57,43,0.6); transform: translateY(-3px); z-index: 2; }
+    .session-card:hover .card-glow { opacity: 1; }
+    .session-card:hover .card-title { color: var(--gold); }
+    .card-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top left, rgba(139,26,26,0.15), transparent 70%);
+      opacity: 0; transition: opacity 0.4s; pointer-events: none;
+    }
+    .card-inner { padding: 2rem; position: relative; z-index: 1; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.2rem; }
+    .card-session-number { font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blood); margin-bottom: 0.2rem; }
+    .card-session-date { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.05rem; color: var(--parchment); line-height: 1.3; transition: color 0.3s; max-width: 220px; }
+    .card-badge { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; white-space: nowrap; flex-shrink: 0; }
+    .badge-done   { background: rgba(139,26,26,0.25); color: var(--ember); border: 1px solid rgba(139,26,26,0.4); }
+    .badge-coming { background: rgba(60,60,60,0.4);   color: var(--muted); border: 1px solid rgba(100,100,100,0.3); font-style: italic; }
+    .card-meta { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.15em; margin-bottom: 1rem; }
+    .card-summary { font-size: 0.95rem; font-weight: 300; color: rgba(245,237,214,0.7); line-height: 1.65; font-style: italic; }
+    .card-players { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .player-tag { font-size: 0.7rem; letter-spacing: 0.15em; padding: 0.2rem 0.55rem; border: 1px solid rgba(201,168,76,0.2); color: rgba(201,168,76,0.7); border-radius: 2px; }
+    .card-footer { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid rgba(139,26,26,0.15); display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--blood); letter-spacing: 0.15em; }
+    .card-footer-arrow { transition: transform 0.3s; }
+    .session-card:hover .card-footer-arrow { transform: translateX(5px); }
+    .session-card.upcoming { opacity: 0.5; cursor: default; }
+    .session-card.upcoming:hover { transform: none; border-color: rgba(139,26,26,0.2); }
+
+    /* ── PERSONNAGES ── */
+    .characters-section { padding: 5rem 0; border-top: 1px solid rgba(139,26,26,0.15); }
+    .chars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .char-card { background: rgba(30,20,14,0.6); border: 1px solid rgba(139,26,26,0.18); padding: 1.6rem 1.4rem; text-align: center; transition: border-color 0.3s; }
+    .char-card:hover { border-color: rgba(192,57,43,0.5); }
+    .char-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(201,168,76,0.4);
+      margin: 0 auto 1rem;
+      overflow: hidden;
+      background: rgba(139,26,26,0.2);
+      box-shadow: 0 0 16px rgba(139,26,26,0.3);
+    }
+    .char-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .char-name { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; color: var(--parchment); margin-bottom: 0.3rem; }
+    .char-class { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blood); }
+    .char-player { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; font-style: italic; }
+
+    /* ── SESSION PAGE ── */
+    .session-hero { padding: 4rem 0 3rem; border-bottom: 1px solid rgba(139,26,26,0.2); margin-bottom: 3rem; }
+    .session-hero-label { font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--blood); margin-bottom: 0.8rem; }
+    .session-hero-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--parchment); text-shadow: 0 0 60px rgba(139,26,26,0.6); margin-bottom: 1rem; }
+    .session-hero-date { color: var(--muted); font-size: 0.85rem; letter-spacing: 0.2em; }
+    .session-meta-row { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
+    .session-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-key { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blood); }
+    .meta-val { font-size: 0.9rem; color: var(--parchment); }
+    .session-body { display: grid; grid-template-columns: 1fr 280px; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) { .session-body { grid-template-columns: 1fr; } }
+    .session-chronicle h3 { font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; color: var(--gold); margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .session-chronicle h3:first-child { margin-top: 0; }
+    .session-chronicle p { font-size: 1rem; font-weight: 300; color: rgba(245,237,214,0.85); margin-bottom: 1.2rem; }
+    .session-chronicle blockquote { border-left: 3px solid var(--blood); padding: 0.8rem 1.5rem; margin: 1.5rem 0; background: rgba(139,26,26,0.06); font-style: italic; color: var(--muted); font-size: 1.05rem; }
+    .session-sidebar { position: sticky; top: 72px; }
+    .sidebar-box { background: rgba(30,20,14,0.7); border: 1px solid rgba(139,26,26,0.2); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .sidebar-title { font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blood); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(139,26,26,0.15); }
+    .sidebar-list { list-style: none; }
+    .sidebar-list li { font-size: 0.9rem; color: rgba(245,237,214,0.75); padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 0.6rem; }
+    .sidebar-list li::before { content: '◆'; font-size: 0.4rem; color: var(--blood); flex-shrink: 0; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      margin: 3rem 0 2rem; transition: color 0.2s; cursor: pointer;
+    }
+    .back-link:hover { color: var(--parchment); }
+
+    /* ── AIDE DE JEU ── */
+    .aide-block { margin-top: 3.5rem; }
+    .aide-block-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: var(--parchment);
+      text-shadow: 0 0 30px rgba(139,26,26,0.4);
+      margin-bottom: 0.6rem;
+    }
+
+    /* Téléchargements */
+    .downloads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .download-card {
+      background: rgba(30,20,14,0.8);
+      border: 1px solid rgba(139,26,26,0.25);
+      padding: 1.8rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .download-card:hover { border-color: rgba(192,57,43,0.6); transform: translateY(-3px); }
+    .download-icon { font-size: 2.2rem; line-height: 1; }
+    .download-name { font-family: 'Cinzel Decorative', serif; font-size: 0.95rem; color: var(--parchment); line-height: 1.3; }
+    .download-desc { font-size: 0.85rem; color: var(--muted); font-style: italic; flex: 1; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(201,168,76,0.35);
+      padding: 0.5rem 1rem; text-decoration: none;
+      transition: background 0.2s, color 0.2s; align-self: flex-start;
+    }
+    .download-btn:hover { background: rgba(201,168,76,0.12); color: var(--parchment); }
+
+    /* Tutoriels accordéon */
+    .tutos-grid { display: flex; flex-direction: column; gap: 1px; margin-top: 2rem; }
+    .tuto-card { background: rgba(30,20,14,0.7); border: 1px solid rgba(139,26,26,0.2); overflow: hidden; transition: border-color 0.3s; }
+    .tuto-card:hover { border-color: rgba(192,57,43,0.5); }
+    .tuto-header { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 1.8rem; cursor: pointer; gap: 1rem; user-select: none; }
+    .tuto-header-left { display: flex; align-items: center; gap: 1rem; }
+    .tuto-tag { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 2px; white-space: nowrap; flex-shrink: 0; }
+    .tag-base   { background: rgba(139,26,26,0.2); color: var(--ember); border: 1px solid rgba(139,26,26,0.35); }
+    .tag-avance { background: rgba(80,40,10,0.3);  color: var(--gold);  border: 1px solid rgba(201,168,76,0.3); }
+    .tag-combat { background: rgba(30,60,30,0.3);  color: #7ec87e;      border: 1px solid rgba(80,160,80,0.3);  }
+    .tuto-title { font-family: 'Cinzel Decorative', serif; font-size: 0.95rem; color: var(--parchment); }
+    .tuto-arrow { color: var(--blood); font-size: 1rem; transition: transform 0.3s; flex-shrink: 0; }
+    .tuto-card.open .tuto-arrow { transform: rotate(90deg); }
+    .tuto-body { display: none; padding: 0 1.8rem 1.6rem; border-top: 1px solid rgba(139,26,26,0.1); }
+    .tuto-card.open .tuto-body { display: block; }
+    .tuto-body p { font-size: 0.95rem; font-weight: 300; color: rgba(245,237,214,0.8); margin: 1rem 0; line-height: 1.7; }
+    .tuto-body img { max-width: 100%; border: 1px solid rgba(139,26,26,0.25); margin: 0.8rem 0; display: block; border-radius: 2px; }
+    .tuto-body h3 { font-family: 'Cinzel Decorative', serif; font-size: 0.85rem; color: var(--gold); margin: 1.4rem 0 0.5rem; }
+
+    /* ── FOOTER ── */
+    .site-footer { border-top: 1px solid rgba(139,26,26,0.2); padding: 3rem 2rem; text-align: center; color: var(--muted); font-size: 0.8rem; letter-spacing: 0.15em; }
+    .site-footer strong { font-family: 'Cinzel Decorative', serif; color: var(--gold); font-weight: 400; }
+    .site-footer .red-sky { color: var(--ember); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── PAGES TOGGLE ── */
+    #homepage     { display: block; }
+    #session-view { display: none; }
+    #session-view.active { display: block; }
+    #aide-view    { display: none; }
+    #aide-view.active    { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showHome(event)">
+      <img src="red_sky_logo.png" alt="Red Sky">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sessions"    onclick="showHome(event); setTimeout(()=>document.getElementById('sessions').scrollIntoView({behavior:'smooth'}),100)">Sessions</a></li>
+      <li><a href="#personnages" onclick="showHome(event); setTimeout(()=>document.getElementById('personnages').scrollIntoView({behavior:'smooth'}),100)">Personnages</a></li>
+      <li><a href="#" id="nav-aide" onclick="showAide(event)">Aide de jeu</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE D'ACCUEIL ═══════════════ -->
+<div id="homepage">
+  <header class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Chroniques de</p>
+      <img src="red_sky_logo.png" alt="Red Sky" class="hero-logo">
+      <div class="hero-divider"><span class="hero-rune">✦</span></div>
+      <p class="hero-tagline--red">Le ciel a toujours été rouge. Il ne change jamais. Il brûle les yeux, hante les rêves… et parfois, il murmure.</p>
+    </div>
+    <svg class="skyline" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path fill="currentColor" d="M0,100 L20,100 L20,60 L40,60 L40,40 L60,40 L60,70 L80,70 L80,50 L100,50 L100,80 L120,80 L120,35 L140,35 L140,55 L160,55 L160,45 L180,45 L180,70 L200,70 L200,55 L220,55 L220,30 L240,30 L240,50 L260,50 L260,60 L280,60 L280,40 L300,40 L300,65 L320,65 L320,50 L340,50 L340,75 L360,75 L360,55 L400,55 L400,45 L440,45 L440,70 L480,70 L480,50 L520,50 L520,30 L560,30 L560,55 L600,55 L600,40 L640,40 L640,60 L680,60 L680,45 L720,45 L720,70 L760,70 L760,55 L800,55 L800,35 L840,35 L840,60 L880,60 L880,45 L920,45 L920,70 L960,70 L960,50 L1000,50 L1000,30 L1040,30 L1040,55 L1080,55 L1080,40 L1120,40 L1120,65 L1160,65 L1160,80 L1200,80 L1200,120 L0,120 Z"/>
+    </svg>
+  </header>
+
+  <main class="main-wrap">
+    <section id="sessions">
+      <div class="section-header">
+                <h3 class="section-title">Les Sessions</h3>
+        <div class="section-rule"></div>
+      </div>
+      <div class="sessions-grid" id="sessions-grid"></div>
+    </section>
+
+    <section id="personnages" class="characters-section">
+      <div class="section-header" style="padding-top:0">
+        
+        <h3 class="section-title">Le Groupe</h3>
+        <div class="section-rule"></div>
+      </div>
+      <div class="chars-grid" id="chars-grid"></div>
+    </section>
+  </main>
+</div>
+
+<!-- ═══════════════ VUE SESSION ═══════════════ -->
+<div id="session-view">
+  <main class="main-wrap">
+    <a class="back-link" onclick="showHome(event)">← Retour aux chroniques</a>
+    <div id="session-content"></div>
+  </main>
+</div>
+
+<!-- ═══════════════ VUE AIDE DE JEU ═══════════════ -->
+<div id="aide-view">
+  <main class="main-wrap">
+    <a class="back-link" onclick="showHome(event)">← Retour aux chroniques</a>
+
+    <div class="session-hero">
+      <h1 class="session-hero-title">Aide de Jeu</h1>
+      <p class="session-hero-date" style="font-style:italic;">Tout ce qu'il faut pour survivre dans Red Sky</p>
+    </div>
+
+    <div class="aide-block">
+      <h3 class="aide-block-title">Feuille de perso</h3>
+      <div class="section-rule" style="margin:0.8rem 0 0;"></div>
+      <div class="downloads-grid" id="downloads-grid"></div>
+    </div>
+
+    <div class="aide-block">
+      <h3 class="aide-block-title">Règles & Tutos</h3>
+      <div class="section-rule" style="margin:0.8rem 0 0;"></div>
+      <div class="tutos-grid" id="tutos-grid"></div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p>2026 by Fuga - Une chronique créée pour <strong class="red-sky">Red Sky</strong> &nbsp;·&nbsp; Toutes les aventures y sont relatées fidèlement… du moins, du mieux qu’on peut.</p>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════
+   JOUEURS
+═══════════════════════════════════════════ */
+const PLAYERS = [
+  { name: "Xander",   classe: "Guérisseuse",  player: "Angelle",       token: "Xander.png",   emoji: "🌱" },
+  { name: "Mélusine", classe: "Mécanicienne", player: "Mami",        token: "Melusine.png", emoji: "⚙️" },
+  { name: "Ross",     classe: "Chroniqueur",  player: "Drink'N'Joy", token: "Ross.png",     emoji: "📜" },
+  { name: "Gavroche", classe: "Chasseur",     player: "Minicooki",   token: "Gavroche.png", emoji: "🏹" },
+  { name: "Pola",     classe: "Philosophe",   player: "Archère",     token: "Pola.png",     emoji: "🧠" },
+  
+];
+
+/* ══════════════════════════════════════════
+   SESSIONS
+═══════════════════════════════════════════ */
+const SESSIONS = [
+  {
+    id: 1,
+    titre: "Le message",
+    date: "28-06-2025",
+    lieu: "Le clan de Cham",
+    done: true,
+    resume: "Le groupe vit dans un système de grottes dans lequel est reçu un message d'appel à l'aide venu du nord…",
+    presents: ["Xander", "Mélusine", "Ross", "Gavroche"],
+    highlights: [
+      "Réception du message",
+      "Le groupe se forme",
+      "Adieu au clan",
+      "Premier combat",
+    ],
+    butin: [],
+    chronicle: `
+      <h3>Le départ</h3>
+	  <img src="02.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+      <p>Dans l'obscurité de notre grotte-refuge, là où la roche étouffe le vent et où la survie se joue au fil des jours, un événement vint briser le silence : un appel radio, capté par Caleb. Une demande d'aide, faible, grésillant, mais impossible à ignorer.</p>
+      <p>Avec le soutien de Jarrow, notre chef de clan, nous avons formé une équipe prête à braver l'inconnu. La nuit précédant notre départ, nous avons pris le temps de dire adieu. Des adieux étouffés par la roche, chargés d'émotions, de regards lourds, de mains serrées trop longtemps.</p>
+      <p>Puis, le matin venu, nous avons quitté la grotte pour le Nord, vers cet inconnu où l'appel s'était éteint. En chemin, un lynx croisa notre route — apparition sauvage, presque mystique, comme si le monde lui-même jaugeait notre détermination.</p>
+	  <img src="01.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+      <p>Et lorsque Ross pleura, au détour d'un sentier, ce furent des larmes qui scellèrent notre lien. Plus qu'un groupe, nous étions devenus une meute. L'aventure ne faisait que commencer.</p>
+      <div style="clear:both;"></div>
+	  <blockquote>« N'oublie pas de me rendre mes outils à ton retour, petite. » — Jaro, à Mélusine</blockquote>
+    `,
+  },
+  {
+    id: 2,
+    titre: "Mic & Mara",
+    date: "18-07-2025",
+    lieu: "La cabane de Mara",
+    done: true,
+    resume: "Le groupe découvre une poupée, croise un robot, et secourt une femme qui s’avère être la grand‑mère de Ross",
+    presents: ["Xander", "Mélusine", "Ross", "Gavroche"],
+    highlights: [
+      "le sauvetage de Mara",
+      "la découverte de la cabanne",
+      "Les retrouvaille d'une famille",
+    ],
+    butin: [],
+    chronicle: `
+      <h3>Une poupée qui ravive une blessure..</h3> 
+	  <img src="03.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+	   
+  <p>La route vibrait encore des échos du village que nous venions de quitter.
+    J’ai vu Melu et Gavroche terrasser un lynx — un vrai lynx — avec une facilité qui me dépasse.
+    J’aimerais devenir aussi fort qu’eux un jour.
+  </p>
+  <p>
+    Un peu plus loin, nous sommes tombés sur une voiture. Une vraie.
+    Je n’en avais jamais vue autrement que dans les histoires.
+    Puis j’ai trouvé une poupée… et elle a réveillé un souvenir que j’aurais préféré laisser dormir.
+    Mami m’a rassuré, comme toujours. Elle sait quand ça fait mal.
+  </p>
+  <p>
+    Ensuite, il y a eu ce bruit. Cette femme inconsciente.
+    Gavroche a eu une idée étrange, mais Melu et Xander sont arrivés à temps.
+    On l’a ramenée chez elle. Et puis tout s’est accéléré.
+  </p>
+  <p>
+    Un robot affolé a traversé notre chemin, courant partout comme un animal perdu.
+    Ça m’a presque fait rire.
+  </p>
+  <p>
+    Mais le rire s’est arrêté quand la femme s’est réveillée.
+    Quand elle a demandé à parler à Melu et Xander.
+    Quand j’ai compris qu’elle était… ma grand-mère.
+    Et dans sa maison, j’ai trouvé une photo de ma mère.
+    Elle m’a manqué d’un coup, comme si la douleur n’avait jamais disparu.
+  </p>
+  <p>
+    Heureusement, Melu était là. Elle est toujours là.
+    Même si elle n’est pas ma mère biologique… elle est ma mère quand même.
+  </p>
+  <p>
+    Pendant ce temps, Gavroche a trouvé un tracteur.
+    Je ne savais même pas ce que c’était, mais c’était énorme, comme un arbre de métal.
+    Il a juste poussé quelques feuilles et… voilà.
+  </p>
+  <p>
+    Avant notre départ, Mami Mara nous a dit d’aller cinq jours vers le nord.
+    Je ne sais pas pourquoi, mais je les suivrai.
+    Tous. Où qu’ils aillent.
+  </p>
+  <img src="04.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Et puis la radio s’est mise à parler.
+    Comme si quelqu’un, quelque part, nous appelait.
+    Je crois que demain, tout va encore changer.
+    Mais je ne suis plus seul. Et ça change tout.
+  </p>
+      <div style="clear:both;"></div>
+	  <blockquote>« Je veux que tu saches que ta maman, ma fille, t'aimait beaucoup » — Mara, à Ross</blockquote>
+    `,
+  },
+  {
+    id: 3,
+    titre: "Les enfants perdus #1",
+    date: "29-07-2025",
+    lieu: "La route",
+    done: true,
+    resume: "Après avoir accueilli Pola, le groupe affronte un sanglier furieux et tombe sur un barrage d’enfants sauvages.. ",
+    highlights: [
+	"L'obtention d'un equipement lourd",
+	"Une nouvelle venue",
+	"Un combat avec un sanglier",
+	"Decouverte des enfants sauvages",
+	"Xander montre ses talents",
+	"La mort de la maman",
+	
+	],
+    butin: [],
+	presents: ["Xander", "Mélusine", "Ross", "Gavroche", "Pola"],
+    chronicle: `
+	<h3>La Meute Orpheline </h3>
+	<img src="05.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">	 
+  <p>Après s’être équipés grâce aux réserves de Mara, la grand-mère que Ross venait tout juste de retrouver,
+    le groupe fait la connaissance de Pola, la jeune protégée de Mara, qui accepte d’intégrer leur petite troupe.
+  </p>
+
+  <p>
+    Ils reprennent la route et affrontent un sanglier géant, rendu fou de rage, dont ils viennent à bout
+    sans subir de véritables dommages.
+  </p>
+
+  <p>
+    Plus loin, un barrage de carcasses de voitures entremêlées leur bloque le passage.
+    De cet étrange rempart surgissent quelques enfants qui réclament un droit de passage.
+  </p>
+
+  <p>
+    Xander comprend rapidement qu’ils sont surtout terrifiés, bien plus que dangereux, et leur offre son aide.
+    Elle découvre alors que leur protectrice, une femme qu’ils appellent « Maman », est gravement malade.
+  </p>
+
+  <p>
+    Xander tente de la sauver, mais arrive trop tard. La femme s’éteint, laissant derrière elle une meute d’enfants perdus.
+  </p>
+<img src="04b.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Lee, le plus âgé, devient de fait le responsable du groupe — une charge immense pour un ado.
+    Ensemble, ils incinèrent la dépouille de leur mère et attendent, silencieux, ce que la suite leur réserve.
+  </p>
+      <div style="clear:both;"></div>
+	  <blockquote>« Se tracteur est fait pour moi! » — Gavroche, au groupe</blockquote>
+	`,
+  },
+  {
+    id: 4,
+    titre: "Les enfants perdus #2",
+    date: "28-01-2026",
+    lieu: "Le clan des sauvageons",
+    done: true,
+    resume: "Le groupe se retrouve responsable d'un groupe d'enfants dans un monde qui ne pardonne rien.",
+    highlights: [
+	"Lee devient un homme",
+    "Un couple se forme",
+	"La fugue de Ross",
+	"Moussonne prend en charge la meute",
+	"Un raccourci!",
+		
+	
+	],
+    butin: [],
+	presents: ["Xander", "Mélusine", "Ross", "Gavroche", "Pola", "Mousonne",],
+	guests: ["Mousonne"],
+	guestPlayers: ["John"],
+	chronicle: `
+	<h3>La nuit de tous les mystères</h3>
+	<img src="07.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+	<p>Après des adieux déchirants à leur mère d’adoption, les enfants, épuisés, se réfugient dans leurs couchettes de fortune.
+    Lee, encore bouleversé, trouve un peu de réconfort auprès de Pola, dont la douceur apaise ses pensées trop lourdes.
+  </p>
+
+  <p>
+    Pendant ce temps, Ross, toujours secoué par ses retrouvailles avec sa grand-mère et par les funérailles de la vieille femme,
+    quitte le camp pour échapper au tumulte de ses émotions.
+  </p>
+
+  <p>
+    Par chance, il croise la route du chasseur Moussonne, qui le ramène au camp sans le juger.
+    En apprenant la mort de « Maman », Moussonne décide de rester pour veiller sur la meute d’enfants.
+  </p>
+
+  <p>
+    Lee, un peu blessé dans son honneur, comprend pourtant que Moussonne sera un meilleur guide que lui
+    et accepte de lui laisser la responsabilité du groupe.
+  </p>
+<img src="08.jpg" alt="Description" style="float:left; margin: 10px 10px 0 0; width:150px;">
+  <p>
+    Le reste de la troupe, chargé de trouver « New Eden », doit reprendre la route.
+    Suivant les indications des enfants, ils empruntent un vieux tunnel sombre,
+    censé leur faire gagner plusieurs jours de marche vers le nord.
+  </p>
+<div style="clear:both;"></div>
+	  <blockquote>« Malgré notre responsabilité nous devont trouver "New Eden"! » — Xander, au groupe</blockquote>
+	`,
+    
+  },
+{
+  id: 5,
+  titre: "Le tunnel #1",
+  date: "25-03-2026",
+  lieu: "Le tunnel",
+  done: true,
+  resume: " Le groupe doit reprendre la route vers New Eden et, guidé par les indications des enfants, s’engager dans un vieux tunnel sombre... ",
+  highlights: ["Combat de rats",
+	"Tunnel effondré",
+	"Blessure de Ross",
+	"On fonce !",],
+  butin: [
+  
+  ],
+  presents: ["Xander", "Mélusine", "Ross", "Gavroche", "Pola"],
+  chronicle: `
+  <h3>La route engloutie</h3>
+    <img src="10.jpg" alt="Description" style="float:right; margin: 0 0 10px 10px; width:150px;">
+      <p>Laissant derrière eux la meute d’enfants sauvages confiée aux soins de Moussonne et de Lee,
+        le groupe s’engage avec leur tracteur dans un tunnel sombre, humide et glacé.
+      </p>
+
+      <p>
+        Ils rencontrent rapidement leurs premiers ennuis : des rats, attirés par l’odeur de chair fraîche
+        et la lumière des phares, bondissent sur la caravane. Après une lutte désespérée,
+        ils s’en sortent de justesse, non sans quelques dégâts sur le tracteur.
+      </p>
+
+      <p>
+        Quelques kilomètres plus loin, un éboulement massif leur barre la route.
+        Ross tente de se glisser dans les interstices du chaos rocheux, mais se blesse en essayant.
+      </p>
+
+      <p>
+        Gavroche décide alors de prendre les choses en main : il fonce avec le tracteur dans la structure effondrée.
+        Le choc est violent, mais le passage finit par céder.
+      </p>
+
+      <p>
+        Ils se retrouvent de l’autre côté du tunnel, haletants et couverts de poussière,
+        sans savoir ce que l’avenir leur réserve désormais.
+      </p>
+   	<div style="clear:both;"></div>
+    <blockquote>« IIIIK! IIIIK! IIIIK!» — Rat n°3, dernières paroles</blockquote>
+  `,
+  },
+  {
+    id: 6,
+    titre: "Le tunnel #2",
+    date: "???",
+    lieu: "???",
+    done: false,
+    resume: "À venir…",
+    highlights: [],
+    butin: [],
+	presents: [],
+    chronicle: "",
+  },
+  {
+    id: 7,
+    titre: "???",
+    date: "???",
+    lieu: "???",
+    done: false,
+    resume: "À venir…",
+    highlights: [],
+    butin: [],
+	presents: ["Xander", "Mélusine", "Ross", "Gavroche", "Pola"],
+    chronicle: "",
+  },
+  {
+    id: 8,
+    titre: "???",
+    date: "???",
+    lieu: "???",
+    done: false,
+    resume: "À venir…",
+    highlights: [],
+    butin: [],
+	presents: ["Xander", "Mélusine", "Ross", "Gavroche", "Pola"],
+    chronicle: "",
+  },
+];
+
+/* ══════════════════════════════════════════
+   AIDE DE JEU — DONNÉES
+  ═══════════════════════════════════════════ */
+
+
+const DOWNLOADS = [
+  {
+    icon: "📄",
+    nom: "Feuille de personnage — Vierge",
+    desc: "La feuille de perso Red Sky, à imprimer ou à remplir directement en PDF.",
+    fichier: "feuille_perso.pdf",
+    image: "vignette.png"
+  },
+ 
+];
+
+const TUTOS = [
+  {
+    tag: "base",
+    tagLabel: "la base",
+    titre: "Comment créer son personnage ?",
+    image: null,
+    corps: `
+<section>
+  <h4><br><br>Etape 1 -  Les Composantes</h4>
+  <p>les composantes sont les fondations de votre personnage : tout le reste en découle.</p>
+  <p>Vous disposez de <strong>12 points</strong> à répartir entre&nbsp;:</p>
+  <ul>
+    <h3>Corps, Instincts, Cœur, Esprit</h3>
+  </ul>
+  <p>🟥 Minimum <strong>1 point</strong> dans chaque composante.</p>
+  <p>🟥 Ces valeurs serviront ensuite à calculer les <strong>Moyens</strong>.</p>
+</section>
+
+<section>
+  <h4><br><br>Etape 2 - Moyens (calcul automatique)</h4>
+  <p>les moyens représentent ce que votre personnage fait concrètement lors d'une action.</p>
+  <p>Les Moyens se déduisent directement des composantes&nbsp;:</p>
+  <ul>
+    <h3><strong>Action</strong> = Corps + Instincts</h3>
+    <h3><strong>Perception</strong> = Instincts + Esprit</h3>
+    <h3><strong>Désir</strong> = Cœur + Instincts</h3>
+    <h3><strong>Résistance</strong> = Cœur + Esprit</h3>
+  </ul>
+  <p>🟥 Les valeurs obtenues tournent généralement entre 3 et 8.</p>
+</section>
+
+<section>
+  <h4><br><br>Etape 3 -  Les Règnes</h4>
+  <p>Les règnes définissent les domaines du monde avec lesquels votre personnage est le plus à l'aise.</p>
+  <p>Vous disposez de <strong>8 points</strong> à répartir librement entre les 5 Règnes&nbsp;:</p>
+  <ul>
+    <h3>Minéral, Végétal, Animal, Humain, Mécanique</h3>
+  </ul>
+  <p>🟥 Aucun minimum ni maximum par Règne.</p>
+</section>
+
+<section>
+  <h4><br><br>Etape 4 - Énergies</h4>
+  <p>les énergies sont dépensées en jeu pour booster vos actions (permet de relancer un dés raté).<br> Elles se récupèrent entièrement lors d'un repos complet.</p>
+  <p>Vous avez <strong>5 points</strong> à répartir dans les 3 cases d’énergie.</p>
+  <h3>Puissance, Rapidité, Précision</h3>
+  <p>🟥 Aucun minimum ni maximum par énergie.</p>
+  <p>🟥 Un repos complet permet de tout récupérer.</p>
+</section>
+
+<section>
+  <h4><br><br>Etape 5 - Talents</h4>
+  <p>Les talents représentent les compétences spécifiques et l'histoire de votre personnage.<br>(permet d'augmenter à +1 ou +2 un total à battre)</p>
+  <p>Vous disposez de <strong>5 points</strong> pour acheter des talents.</p>
+  <ul>
+    <h3>Choisissez un <strong>métier de base</strong> : il donne <strong>+1</strong>.</h3>
+    <h3>Ajoutez ensuite <strong>2 à 4 talents</strong> supplémentaires (valeurs possibles : +1, +2).</h3>
+  </ul>
+  <p>🟥 Le total dépensé doit rester dans la limite des 5 points.</p>
+</section>
+
+<section>
+  <h4><br><br>Etape 6 -  Points de Vie (PV)</h4>
+  <h3>Tout Survivant démarre avec <strong>3 PV</strong>.</h3><p>C'est peu mais c'est un rappel que dans Red Sky, le monde est dur et les combats, courts.</p>
+  <p>🟥Les PNJ, eux, n'en ont généralement qu'1 ou 2.</p>
+   
+</section>
+
+    `,
+  },
+  {
+    tag: "combat",
+    tagLabel: "Resolution",
+    titre: "Comment resoudre une action ? ",
+    image: "resolve2.png",
+    corps: `
+      <p>1 - Calculez votre Total :Composante + Moyen + Cible + modificateur du MJ.</p>
+	  <p>2 - Lancez 2d6 : Si le résultat est plus petit ou égal au total, c’est une réussite.</p>
+      <p>3 - Cas particuliers :2 → réussite critique  12 → échec critique</p>
+	  <p><br><br><strong>Liste des Composante & moyens</strong><br><br></p>
+	  <img src="Matrice Red Sky .png" alt="Red Sky" class="hero-logo" >
+    `,
+  },
+  {
+    tag: "avance",
+    tagLabel: "XP",
+    titre: "Dépenser les points durement gagnés ?",
+    image: null,
+    corps: `
+      <p>Les XP, ou « points d’aventure » dans Red Sky, s’obtiennent en fin de session. Le MJ les distribue selon ses envies… et oui, c’est injuste.^^.</p>
+
+       <p>100 points d’aventure permettent : d’acheter un nouveau talent (à +1),d’augmenter de 1 un talent déjà existant (un talent est max +2!) ou d’augmenter d’un point l’une des trois Énergies.</p>
+    `,
+  },
+  
+];
+
+/* ══════════════════════════════════════════
+   RENDU — SESSIONS
+═══════════════════════════════════════════ */
+function buildSessionCards() {
+  const grid = document.getElementById('sessions-grid');
+  grid.innerHTML = SESSIONS.map(s => `
+    <a class="session-card${s.done ? '' : ' upcoming'} reveal"
+       onclick="${s.done ? `showSession(event,${s.id})` : 'event.preventDefault()'}">
+      <div class="card-glow"></div>
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <p class="card-session-number">Session ${String(s.id).padStart(2,'0')}</p>
+            <p class="card-session-date">📅 ${s.date}</p>
+            <h3 class="card-title">${s.titre}</h3>
+          </div>
+          <span class="card-badge ${s.done ? 'badge-done' : 'badge-coming'}">
+            ${s.done ? 'Jouée' : 'À venir'}
+          </span>
+        </div>
+        <p class="card-meta">📍 ${s.lieu}</p>
+        <p class="card-summary">${s.resume}</p>
+        ${s.done ? `
+        <div class="card-players">
+          ${PLAYERS.filter(p => s.presents && s.presents.includes(p.name)).map(p => `<span class="player-tag">${p.name}</span>`).join('')}
+          ${(s.guests || []).map(g => `<span class="player-tag" style="opacity:0.6; font-style:italic;">${g}</span>`).join('')}
+        </div>
+        <div class="card-footer">
+          <span>Lire la chronique</span>
+          <span class="card-footer-arrow">→</span>
+        </div>` : ''}
+      </div>
+    </a>
+  `).join('');
+  observeReveal();
+}
+
+/* ══════════════════════════════════════════
+   RENDU — PERSONNAGES
+═══════════════════════════════════════════ */
+function buildCharCards() {
+  const grid = document.getElementById('chars-grid');
+  grid.innerHTML = PLAYERS.map(p => `
+    <div class="char-card reveal">
+      <div class="char-avatar">
+        <img
+          src="${p.token}"
+          alt="${p.name}"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+        <span style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:2rem;color:var(--gold);font-family:'Cinzel Decorative',serif;">
+          ${p.name.charAt(0)}
+        </span>
+      </div>
+      <p class="char-name">${p.name}</p>
+      <p class="char-class">${p.classe}</p>
+      <p class="char-player">${p.player}</p>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+/* ══════════════════════════════════════════
+   RENDU — AIDE DE JEU
+═══════════════════════════════════════════ */
+function buildAide() {
+  document.getElementById('downloads-grid').innerHTML = DOWNLOADS.map(d => `
+    <div class="download-card">
+      <div class="download-icon">${d.icon}</div>
+      ${d.image ? `<img src="${d.image}" alt="${d.nom}">` : ''}
+      <p class="download-name">${d.nom}</p>
+      <p class="download-desc">${d.desc}</p>
+      <a class="download-btn" href="${d.fichier}" download>↓ Télécharger</a>
+    </div>
+  `).join('');
+
+  document.getElementById('tutos-grid').innerHTML = TUTOS.map((t, i) => `
+    <div class="tuto-card" id="tuto-${i}">
+      <div class="tuto-header" onclick="toggleTuto(${i})">
+        <div class="tuto-header-left">
+          <span class="tuto-tag tag-${t.tag}">${t.tagLabel}</span>
+          <span class="tuto-title">${t.titre}</span>
+        </div>
+        <span class="tuto-arrow">▶</span>
+      </div>
+      <div class="tuto-body">
+        ${t.image ? `<img src="${t.image}" alt="${t.titre}">` : ''}
+        ${t.corps}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleTuto(i) {
+  document.getElementById(`tuto-${i}`).classList.toggle('open');
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+function hideAll() {
+  document.getElementById('homepage').style.display    = 'none';
+  document.getElementById('session-view').classList.remove('active');
+  document.getElementById('aide-view').classList.remove('active');
+  document.getElementById('nav-aide').classList.remove('active-nav');
+}
+
+function showHome(e) {
+  if (e) e.preventDefault();
+  hideAll();
+  document.getElementById('homepage').style.display = 'block';
+  window.scrollTo({ top: 0 });
+}
+
+function showAide(e) {
+  if (e) e.preventDefault();
+  hideAll();
+  document.getElementById('aide-view').classList.add('active');
+  document.getElementById('nav-aide').classList.add('active-nav');
+  window.scrollTo({ top: 0 });
+}
+
+function showSession(e, id) {
+  e.preventDefault();
+  const s = SESSIONS.find(x => x.id === id);
+  if (!s || !s.done) return;
+
+  const presents = PLAYERS.filter(p => s.presents && s.presents.includes(p.name));
+
+  document.getElementById('session-content').innerHTML = `
+    <div class="session-hero">
+      <p class="session-hero-label">Session ${String(s.id).padStart(2,'0')}</p>
+      <h1 class="session-hero-title">${s.titre}</h1>
+      <p class="session-hero-date">📅 ${s.date}</p>
+      <div class="session-meta-row">
+        <div class="session-meta-item">
+          <span class="meta-key">Lieu</span>
+          <span class="meta-val">${s.lieu}</span>
+        </div>
+        <div class="session-meta-item">
+          <span class="meta-key">Joueurs</span>
+          <span class="meta-val">${presents.map(p => p.player).join(', ')}</span>
+        </div>
+        ${(s.guestPlayers || []).length ? `
+        <div class="session-meta-item">
+          <span class="meta-key">Invités</span>
+          <span class="meta-val">${s.guestPlayers.join(', ')}</span>
+        </div>` : ''}
+        </div>
+      </div>
+    </div>
+
+    <div class="session-body">
+      <article class="session-chronicle">
+        ${s.chronicle}
+      </article>
+      <aside class="session-sidebar">
+        ${s.highlights.length ? `
+        <div class="sidebar-box">
+          <p class="sidebar-title">Temps forts</p>
+          <ul class="sidebar-list">
+            ${s.highlights.map(h => `<li>${h}</li>`).join('')}
+          </ul>
+        </div>` : ''}
+        <div class="sidebar-box">
+          <p class="sidebar-title">Le groupe</p>
+          <ul class="sidebar-list">
+            ${presents.map(p => `
+              <li>
+                <span style="font-size:1rem;flex-shrink:0;">${p.emoji}</span>
+                ${p.name} — <em style="color:var(--muted);font-size:.8rem">${p.classe}</em>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  `;
+
+  hideAll();
+  document.getElementById('session-view').classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+function observeReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => io.observe(el));
+}
+
+/* ══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+buildSessionCards();
+buildCharCards();
+buildAide();
+</script>
+
+</body>
+</html>
